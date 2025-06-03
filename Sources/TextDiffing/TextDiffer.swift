@@ -6,6 +6,7 @@ public struct TextDiffer {
     public static func diff(
         _ text: String,
         and otherText: String,
+        style: TextDiffStyle = TextDiffStyle(),
         options: TextDiffOptions = []
     ) -> TextDiffResult {
         let stringTokenizer = stringTokenizer(for: options)
@@ -13,7 +14,7 @@ public struct TextDiffer {
         let destinationTokens = stringTokenizer.tokenize(otherText)
         let diffSegments = destinationTokens.diffSegments(comparingWith: sourceTokens)
         let changeCount = diffSegments.filter { $0.type == .inserted || $0.type == .removed }.count
-        let nsAttributedString = NSAttributedString(diffSegments, options: options)
+        let nsAttributedString = NSAttributedString(diffSegments, style: style, options: options)
         let attributedString = AttributedString(nsAttributedString)
         return TextDiffResult(changeCount: changeCount, attributedString: attributedString)
     }

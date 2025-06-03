@@ -12,8 +12,6 @@ let package = Package(
         ])
     ],
     targets: [
-        .target(name: "TextDiffing", resources: [
-            .process("Assets.xcassets")
-        ])
+        .target(name: "TextDiffing")
     ]
 )

@@ -6,18 +6,25 @@ import UIKit
 #endif
 
 public extension NSAttributedString {
-    convenience init(diffing text: String, and otherText: String, options: TextDiffOptions = []) {
-        let differ = TextDiffer.diff(text, and: otherText, options: options)
+    convenience init(
+        diffing text: String,
+        and otherText: String,
+        style: TextDiffStyle = TextDiffStyle(),
+        options: TextDiffOptions = []
+    ) {
+        let differ = TextDiffer.diff(text, and: otherText, style: style, options: options)
         let attributedString = NSAttributedString(differ.attributedString)
         self.init(attributedString: attributedString)
     }
 }
 
 extension NSAttributedString {
-    convenience init(_ diffSegments: [DiffSegment<String>], options: TextDiffOptions) {
+    convenience init(
+        _ diffSegments: [DiffSegment<String>],
+        style: TextDiffStyle = TextDiffStyle(),
+        options: TextDiffOptions
+    ) {
         let string = NSMutableAttributedString()
-        let diffBackgroundInsert = MPColor(named: "diff_background_insert", in: .module)
-        let diffBackgroundRemove = MPColor(named: "diff_background_remove", in: .module)
         for diffSegment in diffSegments {
             switch diffSegment.type {
             case .same:
@@ -25,12 +32,12 @@ extension NSAttributedString {
                 string.insert(attributedString, at: string.length)
             case .inserted:
                 let attributedString = NSAttributedString(string: diffSegment.element, attributes: [
-                    .backgroundColor: diffBackgroundInsert
+                    .backgroundColor: style.insertedBackground
                 ])
                 string.insert(attributedString, at: string.length)
             case .removed:
                 var attributes: [NSAttributedString.Key: Any] = [
-                    .backgroundColor: diffBackgroundRemove
+                    .backgroundColor: style.removedBackground
                 ]
                 if options.contains(.strikethroughRemovedText) {
                     attributes[.strikethroughStyle] = NSUnderlineStyle.single.rawValue
