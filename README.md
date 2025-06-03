@@ -49,3 +49,13 @@ let attributedString = AttributedString(diffing: text, and: otherText)
 ```swift
 let attributedString = NSAttributedString(diffing: text, and: otherText)
 ```
+
+You can customize the appearance of inserted and removed text by providing your own TextDiffStyle. This lets you control the background color used for visual highlighting.
+
+```swift
+let style = TextDiffStyle(
+  insertedBackground: UIColor.systemGreen.withAlphaComponent(0.3),
+  removedBackground: UIColor.systemRed.withAlphaComponent(0.3)
+)
+let result = TextDiffer.diff(text, and: otherText, style: style)
+```
