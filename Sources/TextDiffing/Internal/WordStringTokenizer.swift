@@ -3,24 +3,12 @@ import Foundation
 struct WordStringTokenizer: StringTokenizer {
     func tokenize(_ text: String) -> [String] {
         var result: [String] = []
-        let characterSet = CharacterSet.whitespacesAndNewlines
-            .union(.symbols)
-            .union(.punctuationCharacters)
-            .subtracting(CharacterSet(charactersIn: "'’"))
-        var token = ""
-        for character in text {
-            if characterSet.containsUnicodeScalars(of: character) {
-                if !token.isEmpty {
-                    result.append(token)
-                    token = ""
-                }
-                result.append(String(character))
-            } else {
-                token += String(character)
-            }
-        }
-        if !token.isEmpty {
-            result.append(token)
+        let tagger = NSLinguisticTagger(tagSchemes: [.tokenType], options: 0)
+        tagger.string = text
+        let range = NSRange(location: 0, length: text.utf16.count)
+        tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: []) { _, tokenRange, _ in
+            let word = (text as NSString).substring(with: tokenRange)
+            result.append(word)
         }
         return result
     }
