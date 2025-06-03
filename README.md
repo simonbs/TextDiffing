@@ -26,7 +26,7 @@ TextDiffing is distributed using [Swift Package Manager](https://www.swift.org/d
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "git@github.com:simonbs/textdiffing.git", from: "1.0.1")
+        .package(url: "git@github.com:simonbs/textdiffing.git", from: "1.0.2")
     ]
 )
 ```
