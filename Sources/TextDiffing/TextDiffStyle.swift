@@ -17,7 +17,7 @@ public struct TextDiffStyle {
     /// Background color for removed text.
     public let removedBackground: UIColor
 #endif
-    
+
 #if os(macOS)
     /// Creates a custom style with the given background colors.
     ///
