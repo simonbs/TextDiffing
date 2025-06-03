@@ -9,11 +9,13 @@ concurrency:
   cancel-in-progress: true
 jobs:
   SwiftLint:
-    runs-on: macos-13
+    runs-on: macos-15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
+      - name: Install SwiftLint
+        run: brew install swiftlint
       - name: Run SwiftLint
         run: swiftlint --quiet --reporter github-actions-logging
