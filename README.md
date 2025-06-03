@@ -4,6 +4,11 @@ TextDiffing helps you create an AttributedString/NSAttributedStrong to visually 
 
 <img src="screenshot.png" width="405"/>
 
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/simonbs/TextDiffing)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/simonbs/TextDiffing)
+[![Build](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml)
+[![SwiftLint](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml)
+
 ## 📦 Adding the Package
 
 TextDiffing is distributed using [Swift Package Manager](https://www.swift.org/documentation/package-manager/). Install TextDiffing in a project by adding it as a dependency in your Package.swift manifest or through “Package Dependencies” in project settings.
@@ -15,6 +20,10 @@ let package = Package(
     ]
 )
 ```
+
+## 📖 Documentation
+
+The documentation is <a href="https://swiftpackageindex.com/simonbs/textdiffing/documentation">available on Swift Package Index</a>.
 
 ## 🚀 Getting Started
 
