@@ -1,0 +1,29 @@
+name: Run Tests
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
+permissions: read-all
+env:
+  XCODE_SCHEME: TextDiffing
+jobs:
+  run-tests:
+    name: Build for macOS
+    runs-on: macos-15
+    strategy:
+      matrix:
+        include:
+          - xcode: 16.3
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        run: |
+          set -o pipefail &&\
+          xcodebuild test\
+            -scheme ${{ env.XCODE_SCHEME }}\
+            -sdk macosx\
+            -destination "platform=macOS"\
+          | xcbeautify --renderer github-actions

@@ -12,6 +12,9 @@ let package = Package(
         ])
     ],
     targets: [
-        .target(name: "TextDiffing")
+        .target(name: "TextDiffing"),
+        .testTarget(name: "TextDiffingTests", dependencies: [
+            "TextDiffing"
+        ])
     ]
 )
