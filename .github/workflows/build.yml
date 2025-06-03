@@ -18,7 +18,7 @@ jobs:
         include:
           - xcode: 16.3
             destination: iPhone 16 Pro
-            os: 18.3
+            os: 18.3.1
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer  
     steps:
@@ -50,4 +50,5 @@ jobs:
           xcodebuild build\
             -scheme ${{ env.XCODE_SCHEME }}\
             -sdk macosx\
+            -destination "platform=macOS"\
           | xcbeautify --renderer github-actions
