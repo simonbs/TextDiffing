@@ -6,7 +6,7 @@ struct WordStringTokenizer: StringTokenizer {
         let tagger = NSLinguisticTagger(tagSchemes: [.tokenType], options: 0)
         tagger.string = text
         let range = NSRange(location: 0, length: text.utf16.count)
-        tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType, options: []) { _, tokenRange, _ in
+        tagger.enumerateTags(in: range, unit: .word, scheme: .tokenType) { _, tokenRange, _ in
             let word = (text as NSString).substring(with: tokenRange)
             result.append(word)
         }
