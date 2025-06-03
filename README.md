@@ -3,7 +3,7 @@
 <div align="center">
 <img src="screenshot.png" width="405"/>
 
-<h3>TextDiffing helps you create an <a href="https://developer.apple.com/documentation/foundation/attributedstring">AttributedString</a> / <a href="https://developer.apple.com/documentation/foundation/nsattributedstring">NSAttributedString</a> to visualize differences between texts.</h3>
+<h3>TextDiffing helps you create an <code>AttributedString</code> / <code>NSAttributedString</code> to visualize differences between texts.</h3>
 
  [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/simonbs/TextDiffing)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/simonbs/TextDiffing)\
@@ -14,7 +14,7 @@
 
 ## ✨ Features
 
-- Compare two strings and generate `AttributedString`/`NSAttributedString` highlighting differences
+- Compare two strings and generate [AttributedString](https://developer.apple.com/documentation/foundation/attributedstring) / [NSAttributedString](https://developer.apple.com/documentation/foundation/nsattributedstring) highlighting differences
 - Customize appearance of changes
 - Supports word- and character-level diffing
 - Lightweight and easy to integrate
