@@ -8,6 +8,7 @@ TextDiffing helps you create an [AttributedString](https://developer.apple.com/d
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/simonbs/TextDiffing)
 [![Build](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml)
 [![SwiftLint](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml)
+[![Run Tests](https://github.com/simonbs/TextDiffing/actions/workflows/test.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/test.yml)
 
 ## ✨ Features
 
