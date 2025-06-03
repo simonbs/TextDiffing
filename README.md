@@ -1,6 +1,6 @@
 # 🧬 TextDiffing
 
-TextDiffing helps you visually identify differences between two texts, with options for customizing tokenization and formatting of changes.
+TextDiffing helps you create an AttributedString/NSAttributedStrong to visually identify differences between two texts, with options for customizing tokenization and formatting of changes.
 
 <img src="screenshot.png" width="405"/>
 
