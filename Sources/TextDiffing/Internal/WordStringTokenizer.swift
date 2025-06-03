@@ -13,9 +13,3 @@ struct WordStringTokenizer: StringTokenizer {
         return result
     }
 }
-
-private extension CharacterSet {
-    func containsUnicodeScalars(of character: Character) -> Bool {
-        return character.unicodeScalars.allSatisfy(contains(_:))
-    }
-}
