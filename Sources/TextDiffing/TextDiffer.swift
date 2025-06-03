@@ -1,13 +1,22 @@
 import Foundation
 
+/// A utility for computing visual differences between two text strings.
 public struct TextDiffer {
     private init() {}
 
+    /// Computes the visual differences between two strings.
+    ///
+    /// - Parameters:
+    ///   - text: The first input string.
+    ///   - otherText: The second input string to compare with.
+    ///   - style: A `TextDiffStyle` used to style inserted and removed text. Defaults to `TextDiffStyle()`.
+    ///   - options: A set of `TextDiffOptions` that configure the diff behavior. Defaults to `[.tokenizeByWord]`.
+    /// - Returns: A `TextDiffResult` containing the change count and attributed representation of the diff.
     public static func diff(
         _ text: String,
         and otherText: String,
         style: TextDiffStyle = TextDiffStyle(),
-        options: TextDiffOptions = []
+        options: TextDiffOptions = [.tokenizeByWord]
     ) -> TextDiffResult {
         let stringTokenizer = stringTokenizer(for: options)
         let sourceTokens = stringTokenizer.tokenize(text)

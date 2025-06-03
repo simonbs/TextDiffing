@@ -6,11 +6,18 @@ import UIKit
 #endif
 
 public extension NSAttributedString {
+    /// Initializes an `NSAttributedString` representing the differences between two strings.
+    ///
+    /// - Parameters:
+    ///   - text: The first input string.
+    ///   - otherText: The second input string to compare with.
+    ///   - style: The style used for inserted and removed text. Defaults to `TextDiffStyle()`.
+    ///   - options: The diff options. Defaults to `[.tokenizeByWord]`.
     convenience init(
         diffing text: String,
         and otherText: String,
         style: TextDiffStyle = TextDiffStyle(),
-        options: TextDiffOptions = []
+        options: TextDiffOptions = [.tokenizeByWord]
     ) {
         let differ = TextDiffer.diff(text, and: otherText, style: style, options: options)
         let attributedString = NSAttributedString(differ.attributedString)
@@ -22,7 +29,7 @@ extension NSAttributedString {
     convenience init(
         _ diffSegments: [DiffSegment<String>],
         style: TextDiffStyle = TextDiffStyle(),
-        options: TextDiffOptions
+        options: TextDiffOptions = [.tokenizeByWord]
     ) {
         let string = NSMutableAttributedString()
         for diffSegment in diffSegments {
