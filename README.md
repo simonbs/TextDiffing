@@ -9,6 +9,13 @@ TextDiffing helps you create an [AttributedString](https://developer.apple.com/d
 [![Build](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml)
 [![SwiftLint](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml)
 
+## ✨ Features
+
+- Compare two strings and generate `AttributedString`/`NSAttributedString` highlighting differences
+- Customize appearance of changes
+- Supports word- and character-level diffing
+- Lightweight and easy to integrate
+
 ## 📦 Adding the Package
 
 TextDiffing is distributed using [Swift Package Manager](https://www.swift.org/documentation/package-manager/). Install TextDiffing in a project by adding it as a dependency in your Package.swift manifest or through “Package Dependencies” in project settings.
@@ -31,8 +38,18 @@ Use the TextDiffer to compare two strings.
 
 ```swift
 let result = TextDiffer.diff(text, and: otherText)
-let changeCount = result.changeCount
+```
+
+The returned TextDiffResult has two properties:
+
+|Property|Description|
+|-|-|
+|`attributedString`|The formatted `AttributedString` representing the differences.|
+|`changeCount`|The number of changes (insertions or removals) between the texts.|
+
+```swift
 let attributedString = result.attributedString
+let changeCount = result.changeCount
 ```
 
 The `TextDiffer.diff(_:and:)` method also takes the following options.
@@ -43,20 +60,10 @@ The `TextDiffer.diff(_:and:)` method also takes the following options.
 |`tokenizeByCharacter`|Tokenizes the input by individual characters.|
 |`tokenizeByWord`|Tokenizes the input by words (default).|
 
-You can combine multiple options. By default, text is tokenized by word.
+By default, text is tokenized by word. You can combine multiple options to customize behavior.
 
 ```swift
 let result = TextDiffer.diff(text, and: otherText, options: [.tokenizeByCharacter, .strikethroughRemovedText])
-```
-
-You may also use the extensions on NSAttributedString and AttributedString.
-
-```swift
-let attributedString = AttributedString(diffing: text, and: otherText)
-```
-
-```swift
-let attributedString = NSAttributedString(diffing: text, and: otherText)
 ```
 
 You can customize the appearance of inserted and removed text by providing your own TextDiffStyle. This lets you control the background color used for visual highlighting.
@@ -67,4 +74,18 @@ let style = TextDiffStyle(
     removedBackground: UIColor.systemRed.withAlphaComponent(0.3)
 )
 let result = TextDiffer.diff(text, and: otherText, style: style)
+```
+
+You may also use the extensions on NSAttributedString and AttributedString.
+
+```swift
+let attributedString = AttributedString(diffing: text, and: otherText)
+let attributedString = NSAttributedString(diffing: text, and: otherText)
+```
+
+The initializers provided by the extensions also optionally take a style and options.
+
+```swift
+let attributedString = AttributedString(diffing: text, and: otherText, style: style, options: options)
+let attributedString = NSAttributedString(diffing: text, and: otherText, style: style, options: options)
 ```
