@@ -1,5 +1,5 @@
-@testable import TextDiffing
 import Testing
+@testable import TextDiffing
 
 @Suite
 final class CharacterStringTokenizerTests {
