@@ -6,7 +6,7 @@
 <h3>TextDiffing helps you create an <a href="https://developer.apple.com/documentation/foundation/attributedstring">AttributedString</a> / <a href="https://developer.apple.com/documentation/foundation/nsattributedstring">NSAttributedString</a> to visualize differences between texts.</h3>
 
  [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/simonbs/TextDiffing)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/simonbs/TextDiffing)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fsimonbs%2FTextDiffing%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/simonbs/TextDiffing)\
 [![Build](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/build.yml)
 [![SwiftLint](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/swiftlint.yml)
 [![Run Tests](https://github.com/simonbs/TextDiffing/actions/workflows/test.yml/badge.svg)](https://github.com/simonbs/TextDiffing/actions/workflows/test.yml)
