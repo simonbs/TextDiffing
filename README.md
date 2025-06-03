@@ -2,7 +2,7 @@
 
 TextDiffing helps you visually identify differences between two texts, with options for customizing tokenization and formatting of changes.
 
-![](screenshot.png)
+<img src="screenshot.png" width="405"/>
 
 ## 📦 Adding the Package
 
