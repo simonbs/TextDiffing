@@ -54,8 +54,8 @@ You can customize the appearance of inserted and removed text by providing your 
 
 ```swift
 let style = TextDiffStyle(
-  insertedBackground: UIColor.systemGreen.withAlphaComponent(0.3),
-  removedBackground: UIColor.systemRed.withAlphaComponent(0.3)
+    insertedBackground: UIColor.systemGreen.withAlphaComponent(0.3),
+    removedBackground: UIColor.systemRed.withAlphaComponent(0.3)
 )
 let result = TextDiffer.diff(text, and: otherText, style: style)
 ```
