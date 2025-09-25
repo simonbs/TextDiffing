@@ -21,7 +21,7 @@ extension Array where Element == String {
         for change in diff {
             switch change {
             case let .insert(offset, element, _):
-                let deltaOffset = deletedOffsets.filter { $0 < offset }.count
+                let deltaOffset = deletedOffsets.filter { $0 <= offset }.count
                 segments.insert(DiffSegment(type: .inserted, element: element), at: offset + deltaOffset)
             case let .remove(offset, element, _):
                 deletedOffsets.insert(offset)
