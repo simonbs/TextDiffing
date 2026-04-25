@@ -127,6 +127,42 @@ import Foundation
         ])
     }
 
+    @Test func diffSegmentsWhenRemovingSpaceBetweenWords() async throws {
+        let diffSegments = diff("Hello World", and: "HelloWorld")
+        #expect(diffSegments == [
+            DiffSegment(type: .same, element: "Hello"),
+            DiffSegment(type: .removed, element: " "),
+            DiffSegment(type: .same, element: "World")
+        ])
+    }
+
+    @Test func diffSegmentsWhenInsertingSpaceBetweenWords() async throws {
+        let diffSegments = diff("HelloWorld", and: "Hello World")
+        #expect(diffSegments == [
+            DiffSegment(type: .same, element: "Hello"),
+            DiffSegment(type: .inserted, element: " "),
+            DiffSegment(type: .same, element: "World")
+        ])
+    }
+
+    @Test func diffSegmentsWhenRemovingSpaceInFirstPairOfThreeWords() async throws {
+        let diffSegments = diff("one two three", and: "onetwo three")
+        #expect(diffSegments == [
+            DiffSegment(type: .same, element: "one"),
+            DiffSegment(type: .removed, element: " "),
+            DiffSegment(type: .same, element: "two three")
+        ])
+    }
+
+    @Test func diffSegmentsWhenRemovingSpaceInLastPairOfThreeWords() async throws {
+        let diffSegments = diff("one two three", and: "one twothree")
+        #expect(diffSegments == [
+            DiffSegment(type: .same, element: "one two"),
+            DiffSegment(type: .removed, element: " "),
+            DiffSegment(type: .same, element: "three")
+        ])
+    }
+
     @Test func diffSegmentsWhenChangingNumberAfterSymbol() async throws {
         let diffSegments = diff("price is $10", and: "price is $20")
         #expect(diffSegments == [
