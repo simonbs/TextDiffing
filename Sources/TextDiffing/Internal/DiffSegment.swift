@@ -15,18 +15,9 @@ extension Array where Element == String {
     func diffSegments(comparingWith other: [Element]) -> [DiffSegment<Element>] {
         let destination = refined(basedOn: other)
         let source = other.refined(basedOn: destination)
-
-        let diff = destination.difference(from: source)
-        var insertedByDestinationOffset: [Int: [Element]] = [:]
-        var removedBySourceOffset: [Int: [Element]] = [:]
-        for change in diff {
-            switch change {
-            case let .insert(offset, element, _):
-                insertedByDestinationOffset[offset, default: []].append(element)
-            case let .remove(offset, element, _):
-                removedBySourceOffset[offset, default: []].append(element)
-            }
-        }
+        let (insertedByDestinationOffset, removedBySourceOffset) = changeMaps(
+            for: destination.difference(from: source)
+        )
 
         var sourceIndex = 0
         var destinationIndex = 0
@@ -73,6 +64,22 @@ extension Array where Element == String {
         }
 
         return segments
+    }
+
+    private func changeMaps(
+        for diff: CollectionDifference<Element>
+    ) -> ([Int: [Element]], [Int: [Element]]) {
+        var insertedByOffset: [Int: [Element]] = [:]
+        var removedByOffset: [Int: [Element]] = [:]
+        for change in diff {
+            switch change {
+            case let .insert(offset, element, _):
+                insertedByOffset[offset, default: []].append(element)
+            case let .remove(offset, element, _):
+                removedByOffset[offset, default: []].append(element)
+            }
+        }
+        return (insertedByOffset, removedByOffset)
     }
 
     private func refined(basedOn referenceTokens: [String]) -> [String] {

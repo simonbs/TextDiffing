@@ -14,7 +14,9 @@ struct WordStringTokenizer: StringTokenizer {
     }
 
     private func splitByCharacterCategory(_ token: String) -> [String] {
-        guard var previous = token.first else { return [] }
+        guard var previous = token.first else {
+            return []
+        }
         var result = [String(previous)]
         for char in token.dropFirst() {
             let sameCategory =

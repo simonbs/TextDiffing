@@ -5,9 +5,9 @@
 //  Created by Łukasz Rutkowski on 25/09/2025.
 //
 
+import Foundation
 import Testing
 @testable import TextDiffing
-import Foundation
 
 @Suite struct TextDiffTests {
 
@@ -200,7 +200,7 @@ import Foundation
             DiffSegment(type: .same, element: "First."),
             DiffSegment(type: .removed, element: " "),
             DiffSegment(type: .inserted, element: "\n"),
-            DiffSegment(type: .same, element: "Second."),
+            DiffSegment(type: .same, element: "Second.")
         ])
     }
 
