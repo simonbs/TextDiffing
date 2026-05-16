@@ -17,20 +17,55 @@ extension Array where Element == String {
         let source = other.refined(basedOn: destination)
 
         let diff = destination.difference(from: source)
-        var segments: [DiffSegment<Element>] = source.map { element in
-            return DiffSegment(type: .same, element: element)
-        }
-        var deletedOffsets: Set<Int> = []
+        var insertedByDestinationOffset: [Int: [Element]] = [:]
+        var removedBySourceOffset: [Int: [Element]] = [:]
+
         for change in diff {
             switch change {
             case let .insert(offset, element, _):
-                let deltaOffset = deletedOffsets.filter { $0 <= offset }.count
-                segments.insert(DiffSegment(type: .inserted, element: element), at: offset + deltaOffset)
+                insertedByDestinationOffset[offset, default: []].append(element)
             case let .remove(offset, element, _):
-                deletedOffsets.insert(offset)
-                segments[offset] = DiffSegment(type: .removed, element: element)
+                removedBySourceOffset[offset, default: []].append(element)
             }
         }
+
+        var sourceIndex = 0
+        var destinationIndex = 0
+        var segments: [DiffSegment<Element>] = []
+
+        while sourceIndex < source.count || destinationIndex < destination.count {
+            if let removed = removedBySourceOffset[sourceIndex], !removed.isEmpty {
+                for element in removed {
+                    segments.append(DiffSegment(type: .removed, element: element))
+                    sourceIndex += 1
+                }
+                continue
+            }
+
+            if let inserted = insertedByDestinationOffset[destinationIndex], !inserted.isEmpty {
+                for element in inserted {
+                    segments.append(DiffSegment(type: .inserted, element: element))
+                    destinationIndex += 1
+                }
+                continue
+            }
+
+            if sourceIndex < source.count, destinationIndex < destination.count {
+                segments.append(DiffSegment(type: .same, element: source[sourceIndex]))
+                sourceIndex += 1
+                destinationIndex += 1
+                continue
+            }
+
+            if sourceIndex < source.count {
+                segments.append(DiffSegment(type: .removed, element: source[sourceIndex]))
+                sourceIndex += 1
+            } else if destinationIndex < destination.count {
+                segments.append(DiffSegment(type: .inserted, element: destination[destinationIndex]))
+                destinationIndex += 1
+            }
+        }
+
         return segments.reduce(into: []) { result, segment in
             guard let lastSegment = result.last, segment.type == lastSegment.type else {
                 result.append(segment)

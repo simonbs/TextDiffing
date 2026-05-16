@@ -172,6 +172,38 @@ import Foundation
         ])
     }
 
+    @Test func diffSegmentsWhenInsertingHashtagAndRemovingInternalSpace() async throws {
+        let diffSegments = diff("Fedora 44", and: "#Fedora44")
+        #expect(diffSegments == [
+            DiffSegment(type: .inserted, element: "#"),
+            DiffSegment(type: .same, element: "Fedora"),
+            DiffSegment(type: .removed, element: " "),
+            DiffSegment(type: .same, element: "44")
+        ])
+    }
+
+    @Test func diffSegmentsWhenInsertingMultipleHashtagsWithBoundaryRealignment() async throws {
+        let diffSegments = diff("macOS 26 Fedora 44", and: "#macOS 26 #Fedora44")
+        #expect(diffSegments == [
+            DiffSegment(type: .inserted, element: "#"),
+            DiffSegment(type: .same, element: "macOS 26 "),
+            DiffSegment(type: .inserted, element: "#"),
+            DiffSegment(type: .same, element: "Fedora"),
+            DiffSegment(type: .removed, element: " "),
+            DiffSegment(type: .same, element: "44")
+        ])
+    }
+
+    @Test func diffSegmentsWhenInsertingMultilineBreaks() async throws {
+        let diffSegments = diff("First. Second.", and: "First.\nSecond.")
+        #expect(diffSegments == [
+            DiffSegment(type: .same, element: "First."),
+            DiffSegment(type: .removed, element: " "),
+            DiffSegment(type: .inserted, element: "\n"),
+            DiffSegment(type: .same, element: "Second."),
+        ])
+    }
+
     private func diff(_ text: String, and otherText: String) -> [DiffSegment<String>] {
         let stringTokenizer = WordStringTokenizer()
         let sourceTokens = stringTokenizer.tokenize(text)
