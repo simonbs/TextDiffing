@@ -12,13 +12,13 @@ env:
 jobs:
   build-for-iphone:
     name: Build for iPhone
-    runs-on: macos-15
+    runs-on: macos-latest
     strategy:
       matrix:
         include:
-          - xcode: 16.3
-            destination: iPhone 16 Pro
-            os: 18.3.1
+          - xcode: 26.3
+            destination: iPhone 17 Pro
+            os: 26.3
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer  
     steps:
@@ -34,11 +34,11 @@ jobs:
           | xcbeautify --renderer github-actions
   build-for-macos:
     name: Build for macOS
-    runs-on: macos-15
+    runs-on: macos-latest
     strategy:
       matrix:
         include:
-          - xcode: 16.3
+          - xcode: 26.3
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
     steps:
