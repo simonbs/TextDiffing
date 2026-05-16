@@ -18,7 +18,7 @@ jobs:
         include:
           - xcode: 26.3
             destination: iPhone 17 Pro
-            os: 26.3
+            os: 26.2
     env:
       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer  
     steps:
