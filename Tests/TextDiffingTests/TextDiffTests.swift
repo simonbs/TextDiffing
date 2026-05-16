@@ -204,6 +204,31 @@ import Foundation
         ])
     }
 
+    @Test func diffSegmentsWhenRemovingApostropheInContraction() async throws {
+        let diffSegments = diff("don't stop", and: "dont stop")
+        #expect(diffSegments == [
+            DiffSegment(type: .removed, element: "don't"),
+            DiffSegment(type: .inserted, element: "dont"),
+            DiffSegment(type: .same, element: " stop")
+        ])
+    }
+
+    @Test func diffSegmentsWhenReplacingHyphenWithSpace() async throws {
+        let diffSegments = diff("state-of-the-art", and: "state of the art")
+        #expect(diffSegments == [
+            DiffSegment(type: .same, element: "state"),
+            DiffSegment(type: .removed, element: "-"),
+            DiffSegment(type: .inserted, element: " "),
+            DiffSegment(type: .same, element: "of"),
+            DiffSegment(type: .removed, element: "-"),
+            DiffSegment(type: .inserted, element: " "),
+            DiffSegment(type: .same, element: "the"),
+            DiffSegment(type: .removed, element: "-"),
+            DiffSegment(type: .inserted, element: " "),
+            DiffSegment(type: .same, element: "art")
+        ])
+    }
+
     private func diff(_ text: String, and otherText: String) -> [DiffSegment<String>] {
         let stringTokenizer = WordStringTokenizer()
         let sourceTokens = stringTokenizer.tokenize(text)
