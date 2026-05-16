@@ -14,37 +14,19 @@ struct WordStringTokenizer: StringTokenizer {
     }
 
     private func splitByCharacterCategory(_ token: String) -> [String] {
-        guard let firstChar = token.first else { return [] }
-        var result: [String] = []
-        var currentRun = String(firstChar)
-        var currentCategory = category(of: firstChar)
+        guard var previous = token.first else { return [] }
+        var result = [String(previous)]
         for char in token.dropFirst() {
-            let charCategory = category(of: char)
-            if charCategory != currentCategory {
-                result.append(currentRun)
-                currentRun = String(char)
-                currentCategory = charCategory
+            let sameCategory =
+                (char.isLetter || char.isNumber) == (previous.isLetter || previous.isNumber) &&
+                char.isWhitespace == previous.isWhitespace
+            if sameCategory {
+                result[result.count - 1].append(char)
             } else {
-                currentRun.append(char)
+                result.append(String(char))
             }
+            previous = char
         }
-        result.append(currentRun)
         return result
-    }
-
-    private enum CharacterCategory {
-        case word
-        case whitespace
-        case punctuation
-    }
-
-    private func category(of char: Character) -> CharacterCategory {
-        if char.isLetter || char.isNumber {
-            return .word
-        } else if char.isWhitespace {
-            return .whitespace
-        } else {
-            return .punctuation
-        }
     }
 }

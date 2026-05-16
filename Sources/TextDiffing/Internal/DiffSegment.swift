@@ -19,7 +19,6 @@ extension Array where Element == String {
         let diff = destination.difference(from: source)
         var insertedByDestinationOffset: [Int: [Element]] = [:]
         var removedBySourceOffset: [Int: [Element]] = [:]
-
         for change in diff {
             switch change {
             case let .insert(offset, element, _):
@@ -32,11 +31,18 @@ extension Array where Element == String {
         var sourceIndex = 0
         var destinationIndex = 0
         var segments: [DiffSegment<Element>] = []
+        func appendSegment(_ type: DiffSegmentType, _ element: Element) {
+            guard let lastSegment = segments.last, lastSegment.type == type else {
+                segments.append(DiffSegment(type: type, element: element))
+                return
+            }
+            segments[segments.count - 1] = DiffSegment(type: type, element: lastSegment.element + element)
+        }
 
         while sourceIndex < source.count || destinationIndex < destination.count {
             if let removed = removedBySourceOffset[sourceIndex], !removed.isEmpty {
                 for element in removed {
-                    segments.append(DiffSegment(type: .removed, element: element))
+                    appendSegment(.removed, element)
                     sourceIndex += 1
                 }
                 continue
@@ -44,38 +50,29 @@ extension Array where Element == String {
 
             if let inserted = insertedByDestinationOffset[destinationIndex], !inserted.isEmpty {
                 for element in inserted {
-                    segments.append(DiffSegment(type: .inserted, element: element))
+                    appendSegment(.inserted, element)
                     destinationIndex += 1
                 }
                 continue
             }
 
             if sourceIndex < source.count, destinationIndex < destination.count {
-                segments.append(DiffSegment(type: .same, element: source[sourceIndex]))
+                appendSegment(.same, source[sourceIndex])
                 sourceIndex += 1
                 destinationIndex += 1
                 continue
             }
 
             if sourceIndex < source.count {
-                segments.append(DiffSegment(type: .removed, element: source[sourceIndex]))
+                appendSegment(.removed, source[sourceIndex])
                 sourceIndex += 1
             } else if destinationIndex < destination.count {
-                segments.append(DiffSegment(type: .inserted, element: destination[destinationIndex]))
+                appendSegment(.inserted, destination[destinationIndex])
                 destinationIndex += 1
             }
         }
 
-        return segments.reduce(into: []) { result, segment in
-            guard let lastSegment = result.last, segment.type == lastSegment.type else {
-                result.append(segment)
-                return
-            }
-            let joinedElement = lastSegment.element.appending(segment.element)
-            let joinedDiffSegment = DiffSegment(type: segment.type, element: joinedElement)
-            result.removeLast()
-            result.append(joinedDiffSegment)
-        }
+        return segments
     }
 
     private func refined(basedOn referenceTokens: [String]) -> [String] {
