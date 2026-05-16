@@ -18,6 +18,20 @@ final class WordStringTokenizerTests {
     }
 
     @Test
+    func it_tokenizes_contractions() async throws {
+        let sut = WordStringTokenizer()
+        let result = sut.tokenize("don't stop")
+        #expect(result == ["do", "n", "'", "t", " ", "stop"])
+    }
+
+    @Test
+    func it_tokenizes_hyphenated_words() async throws {
+        let sut = WordStringTokenizer()
+        let result = sut.tokenize("state-of-the-art")
+        #expect(result == ["state", "-", "of", "-", "the", "-", "art"])
+    }
+
+    @Test
     func it_tokenizes_paragraph() async throws {
         let sut = WordStringTokenizer()
         // swiftlint:disable:next line_length
